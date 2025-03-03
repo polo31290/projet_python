@@ -1,65 +1,118 @@
-import random
-import time
+from src.salad import Salade
+from src.sunflower import tournesol
+from src.tree import arbre
 
-class Plante:
-    def __init__(self, nom):
-        self.nom = nom
-        self.niveau_eau = 5
-        self.qualite_sol = 5
-        self.exposition_lumiere = 5
-        self.sante = 10
-    
-    def arroser(self):
-        self.niveau_eau += 1
-        print(f"Vous avez arrosé {self.nom}. Le niveau d'eau est maintenant de {self.niveau_eau}.")
-    
-    def fertiliser(self):
-        self.qualite_sol += 1
-        print(f"Vous avez fertilisé {self.nom}. La qualité du sol est maintenant de {self.qualite_sol}.")
-    
-    def fournir_lumiere(self):
-        self.exposition_lumiere += 1
-        print(f"Vous avez fourni de la lumière à {self.nom}. L'exposition à la lumière est maintenant de {self.exposition_lumiere}.")
-    
-    def evenement_aleatoire(self):
-        evenement = random.choice(["secheresse", "attaque_de_nuisibles", "jour_nuageux"])
-        if evenement == "secheresse":
-            self.niveau_eau -= 2
-            print(f"Une sécheresse est survenue ! Le niveau d'eau de {self.nom} a diminué à {self.niveau_eau}.")
-        elif evenement == "attaque_de_nuisibles":
-            self.sante -= 3
-            print(f"Une attaque de nuisibles est survenue ! La santé de {self.nom} a diminué à {self.sante}.")
-        elif evenement == "jour_nuageux":
-            self.exposition_lumiere -= 2
-            print(f"Un jour nuageux est survenu ! L'exposition à la lumière de {self.nom} a diminué à {self.exposition_lumiere}.")
-    
-    def statut(self):
-        print(f"{self.nom} - Niveau d'eau: {self.niveau_eau}, Qualité du sol: {self.qualite_sol}, Exposition à la lumière: {self.exposition_lumiere}, Santé: {self.sante}")
-    
-    def est_vivante(self):
-        return self.sante > 0 and self.niveau_eau > 0 and self.qualite_sol > 0 and self.exposition_lumiere > 0
 
-def main():
-    plante = Plante("Tournesol")
-    
-    while plante.est_vivante():
-        plante.statut()
-        action = input("Que voulez-vous faire ? (arroser/fertiliser/lumiere/passer) : ")
-        if action == "arroser":
-            plante.arroser()
-        elif action == "fertiliser":
-            plante.fertiliser()
-        elif action == "lumiere":
-            plante.fournir_lumiere()
-        elif action == "passer":
-            print("Vous avez choisi de passer votre tour.")
+def choisir_classe():
+    while True:
+
+        print("\nChoisissez votre plante :")
+        print("1. Tournesol (taux d'eau : 5, etat du sol et de la terre: 5, taux d'exposition à la lumière: 8)")
+        print("2. Arbre (taux d'eau : 4, etat du sol et de la terre: 4, taux d'exposition à la lumière: )")
+        print("3. Salade (taux d'eau : 7, etat du sol et de la terre: 5, taux d'exposition à la lumière: 5)")
+        choix = input("Votre choix : ")
+        if choix == "1":
+            return tournesol("tournesol")
+        elif choix == "2":
+            return arbre("arbre")
+        elif choix == "3":
+            return Salade("salade")
         else:
-            print("Action invalide. Veuillez choisir à nouveau.")
-        
-        plante.evenement_aleatoire()
-        time.sleep(1)
-        
-    print(f"{plante.nom} est morte. Fin du jeu.")
+            print("Choix invalide, veuillez réessayer.")
 
-if __name__ == "__main__":
-    main()
+plante = choisir_classe()
+
+del plante.est_mort 
+
+
+def choisir_action():
+    while True:
+        print("\nChoisissez une action :")
+        print("1. arroser")
+        print("2. fertiliser la terre")
+        print("3. entretenir la plante")
+        print("4. passer la journée")
+        choix = input("Votre choix : ")
+        if choix in ["1", "2", "3", "4"]:
+            return choix
+        else:
+            print("Choix invalide, veuillez réessayer.")
+
+tour = 1
+
+while plante.est_mort() == False:
+    print(f"\n--- jour : {tour} ---")
+    print(f"{plante.name}: Etat: {plante.etat}, Eau: {plante.eau}, Terre: {plante.terre}")
+
+    if plante == "tournesol":
+        if plante.croissance >= 20:
+            print(f"{plante.name} grandi !")
+    elif plante == "arbre":
+        if plante.croissance >= 25:
+            print(f"{plante.name} grandi !")
+    elif plante == "salade":
+        if plante.croissance >= 15:
+            print(f"{plante.name} grandi !")
+    else:
+        pass
+    
+    action = choisir_action()
+    if action == "1":
+        plante.arroser()
+
+        if plante == "tournesol":
+            if plante.croissance >= 20:
+                print(f"{plante.name} grandi !")
+        elif plante == "arbre":
+            if plante.croissance >= 25:
+                print(f"{plante.name} grandi !")
+        elif plante == "salade":
+            if plante.croissance >= 15:
+                print(f"{plante.name} grandi !")
+        else:
+            pass
+    elif action == "2":
+        plante.fertiliser()
+
+        if plante == "tournesol":
+            if plante.croissance >= 20:
+                print(f"{plante.name} grandi !")
+        elif plante == "arbre":
+            if plante.croissance >= 25:
+                print(f"{plante.name} grandi !")
+        elif plante == "salade":
+            if plante.croissance >= 15:
+                print(f"{plante.name} grandi !")
+        else:
+            pass
+
+    elif action == "3":
+        plante.entretenir()
+
+        if plante == "tournesol":
+            if plante.croissance >= 20:
+                print(f"{plante.name} grandi !")
+        elif plante == "arbre":
+            if plante.croissance >= 25:
+                print(f"{plante.name} grandi !")
+        elif plante == "salade":
+            if plante.croissance >= 15:
+                print(f"{plante.name} grandi !")
+        else:
+            pass
+    elif action == "4":
+        pass
+
+        if plante == "tournesol":
+            if plante.croissance >= 20:
+                print(f"{plante.name} grandi !")
+        elif plante == "arbre":
+            if plante.croissance >= 25:
+                print(f"{plante.name} grandi !")
+        elif plante == "salade":
+            if plante.croissance >= 15:
+                print(f"{plante.name} grandi !")
+        else:
+            pass
+    else:
+        print("Choix invalide, veuillez réessayer.")
